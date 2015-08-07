@@ -11,5 +11,8 @@
   },
   "dependencies": {
     "fs-jetpack": "^0.6.5"
+  },
+  "devDependencies": {
+    "bootstrap": "^3.3.5"
   }
 }
