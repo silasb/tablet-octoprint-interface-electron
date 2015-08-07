@@ -1,8 +1,8 @@
 'use strict';
 
 var gulp = require('gulp');
+var babel = require('gulp-babel');
 var less = require('gulp-less');
-var esperanto = require('esperanto');
 var map = require('vinyl-map');
 var jetpack = require('fs-jetpack');
 
@@ -49,20 +49,24 @@ var copyTask = function () {
 gulp.task('copy', ['clean'], copyTask);
 gulp.task('copy-watch', copyTask);
 
+var transpileJSXTask = function() {
+    return gulp.src('app/**/*.jsx')
+        .pipe(babel())
+        .on('error', function(error) {
+          console.log(error.fileName, error.message)
+          this.emit('end')
+        })
+        .pipe(gulp.dest(destDir.path()));
+}
+gulp.task('transpileJSX', ['clean'], transpileJSXTask);
+gulp.task('transpileJSX-watch', transpileJSXTask);
 
 var transpileTask = function () {
     return gulp.src(paths.jsCodeToTranspile)
-    .pipe(map(function(code, filename) {
-        try {
-            var transpiled = esperanto.toAmd(code.toString(), { strict: true });
-        } catch (err) {
-            throw new Error(err.message + ' ' + filename);
-        }
-        return transpiled.code;
-    }))
+    .pipe(babel())
     .pipe(gulp.dest(destDir.path()));
 };
-gulp.task('transpile', ['clean'], transpileTask);
+gulp.task('transpile', ['clean', 'transpileJSX'], transpileTask);
 gulp.task('transpile-watch', transpileTask);
 
 
@@ -101,6 +105,7 @@ gulp.task('finalize', ['clean'], function () {
 
 
 gulp.task('watch', function () {
+    gulp.watch('app/**/*.jsx', ['transpileJSX-watch']);
     gulp.watch(paths.jsCodeToTranspile, ['transpile-watch']);
     gulp.watch(paths.copyFromAppDir, { cwd: 'app' }, ['copy-watch']);
     gulp.watch('app/**/*.less', ['less-watch']);

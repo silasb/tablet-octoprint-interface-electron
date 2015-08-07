@@ -12,6 +12,12 @@ var os = require('os');
 // window.env contains data from config/env_XXX.json file.
 var envName = window.env.name;
 
-document.getElementById('greet').innerHTML = greet();
-document.getElementById('platform-info').innerHTML = os.platform();
-document.getElementById('env-name').innerHTML = envName;
+// document.getElementById('greet').innerHTML = greet();
+// document.getElementById('platform-info').innerHTML = os.platform();
+// document.getElementById('env-name').innerHTML = envName;
+
+var React = require( 'react' );
+var OctoPrintInterface = require( './components/OctoPrintInterface' );
+
+window.React = React;
+React.render( <OctoPrintInterface />, document.body );
