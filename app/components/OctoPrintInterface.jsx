@@ -6,6 +6,33 @@ var octo = new OctoPrint({server: '10.5.5.115', port: 5000})
 var OctoPrintInterface = React.createClass( {
     displayName: 'Main',
 
+    componentDidMount: function() {
+        var _this = this;
+        setInterval(function() {
+            octo.getPrinter(function(printer) {
+                var temps = {
+                    hotend: {
+                        actual: printer.temps.tool0.actual
+                    },
+                    bed: {
+                        actual: printer.temps.bed.actual
+                    }
+                }
+
+                _this.setState({temps: temps})
+            })
+        }, 1000)
+    },
+
+    getInitialState: function() {
+        return {
+            temps: {
+                hotend: {actual: 0},
+                bed: {actual: 0}
+            }
+        }
+    },
+
     handleClick: function(dir) {
         switch(dir) {
             case 'up':
@@ -24,7 +51,7 @@ var OctoPrintInterface = React.createClass( {
                 octo.homeAxes(['x', 'y'],  function() {});
                 break;
         }
-        octo.getTool(function(printer) {
+        octo.getPrinter(function(printer) {
             console.log(printer)
         })
     },
@@ -61,6 +88,15 @@ var OctoPrintInterface = React.createClass( {
 
                     </div>
                 </div>
+
+                <div className="row">
+                    <div className="col-sm-12 col-md-12">
+                        Hotend Tempature {this.state.temps.hotend.actual}
+                        <br/>
+                        Bed Tempature {this.state.temps.bed.actual}
+                    </div>
+                </div>
+
             </div>
         );
     }
