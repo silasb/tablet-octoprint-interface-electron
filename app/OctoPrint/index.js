@@ -58,6 +58,23 @@ class OctoPrint {
         return url
     }
 
+    getConnection(cb) {
+        var resource = `${this.base}/connection`
+        return this.callAPI('GET', resource, {}, cb)
+    }
+
+    setConnection(port, baud, cb) {
+        var resource = `${this.base}/connection`
+        var request = {
+            command: 'connect',
+            port: port,
+            baudrate: baud,
+            autoconnect: false
+        }
+
+        return this.callAPI('POST', resource, request, cb)
+    }
+
     getTool(cb) {
         var resource = `${this.base}/printer/tool`
         return this.callAPI('GET', resource, {}, cb)

@@ -1,19 +1,28 @@
 var React = require( 'react' );
 
 var OctoPrint = require('../OctoPrint')
+var PortSelection = require('./PortSelection')
 
 var octo = new OctoPrint({server: '10.5.5.115', port: 5000})
 octo.onError = function(msg) {
     console.error(msg)
+    alert(msg)
 }
 octo.ping()
-
 
 var OctoPrintInterface = React.createClass( {
     displayName: 'Main',
 
     componentDidMount: function() {
         var _this = this;
+
+        octo.getConnection(function(connection) {
+            console.log(connection)
+            _this.setState({
+                ports: connection.options.ports,
+                bauds: connection.options.baudrates
+            })
+        })
 
         if (false) {
             setInterval(function() {
@@ -33,12 +42,38 @@ var OctoPrintInterface = React.createClass( {
         }
     },
 
+    connectPrinter: function(settings) {
+        octo.setConnection(settings.port, settings.baud, function(printer) {
+            var intervalCount = 0
+            var intervalID = setInterval(function() {
+                intervalCount += 1;
+
+                octo.getConnection(function(connection) {
+                    if (connection.current.state === 'Operational') {
+                        this.setState({connected: true})
+                        clearInterval(intervalID)
+                    }
+                }.bind(this))
+
+                if (intervalCount > 3) {
+                    clearInterval(intervalID)
+                    octo.onError('Trouble connecting to printer')
+
+                }
+
+            }.bind(this), 1000)
+        }.bind(this))
+    },
+
     getInitialState: function() {
         return {
+            connected: false,
             temps: {
                 hotend: {actual: 0},
                 bed: {actual: 0}
-            }
+            },
+            ports: [],
+            bauds: []
         }
     },
 
@@ -77,8 +112,18 @@ var OctoPrintInterface = React.createClass( {
     render: function() {
         var buttonStyle = { marginLeft: '40px' }
 
+        if (! this.state.connected) {
+            var portSelection = <PortSelection ports={this.state.ports} bauds={this.state.bauds} onConnectPrinter={this.connectPrinter} />
+        }
+
         return (
             <div className="container-fluid">
+                <div className="row">
+                    <div className="col-md-2">
+                        {this.state.connected ? 'Connected' : 'Not Connected'}
+                    </div>
+                </div>
+
                 <div className="row">
                     <div className="col-md-2">
 
@@ -122,6 +167,10 @@ var OctoPrintInterface = React.createClass( {
                         </button>
                         <br/>
 
+                    </div>
+
+                    <div className="col-md-1">
+                        {portSelection}
                     </div>
                 </div>
 
