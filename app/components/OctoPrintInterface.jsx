@@ -14,20 +14,23 @@ var OctoPrintInterface = React.createClass( {
 
     componentDidMount: function() {
         var _this = this;
-        setInterval(function() {
-            octo.getPrinter(function(printer) {
-                var temps = {
-                    hotend: {
-                        actual: printer.temps.tool0.actual
-                    },
-                    bed: {
-                        actual: printer.temps.bed.actual
-                    }
-                }
 
-                _this.setState({temps: temps})
-            })
-        }, 1000)
+        if (false) {
+            setInterval(function() {
+                octo.getPrinter(function(printer) {
+                    var temps = {
+                        hotend: {
+                            actual: printer.temps.tool0.actual
+                        },
+                        bed: {
+                            actual: printer.temps.bed.actual
+                        }
+                    }
+
+                    _this.setState({temps: temps})
+                })
+            }, 1000)
+        }
     },
 
     getInitialState: function() {
