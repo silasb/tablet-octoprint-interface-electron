@@ -56,6 +56,15 @@ var OctoPrintInterface = React.createClass( {
             case 'home':
                 octo.homeAxes(['x', 'y'],  function() {});
                 break;
+            case 'z-home':
+                octo.homeAxes('z', function() {})
+                break;
+            case 'z-up':
+                octo.movePrinter(function() {}, 0, 0, -10);
+                break;
+            case 'z-down':
+                octo.movePrinter(function() {}, 0, 0, 10);
+                break;
         }
         octo.getPrinter(function(printer) {
             console.log(printer)
@@ -68,7 +77,7 @@ var OctoPrintInterface = React.createClass( {
         return (
             <div className="container-fluid">
                 <div className="row">
-                    <div className="col-sm-12 col-md-12">
+                    <div className="col-md-2">
 
                         <button className="btn btn-default" style={buttonStyle} onClick={this.handleClick.bind(this, 'up')}>
                             <span className="glyphicon glyphicon-arrow-up"></span>
@@ -91,6 +100,24 @@ var OctoPrintInterface = React.createClass( {
                         <button className="btn btn-default" style={buttonStyle} onClick={this.handleClick.bind(this, 'down')}>
                             <span className="glyphicon glyphicon-arrow-down"></span>
                         </button>
+                    </div>
+
+                    <div className="col-md-1">
+
+                        <button className="btn btn-default" onClick={this.handleClick.bind(this, 'z-up')}>
+                            <span className="glyphicon glyphicon-arrow-up"></span>
+                        </button>
+                        <br/>
+
+                        <button className="btn btn-default" onClick={this.handleClick.bind(this, 'z-home')}>
+                            <span className="glyphicon glyphicon-home"></span>
+                        </button>
+                        <br/>
+
+                        <button className="btn btn-default" onClick={this.handleClick.bind(this, 'z-down')}>
+                            <span className="glyphicon glyphicon-arrow-down"></span>
+                        </button>
+                        <br/>
 
                     </div>
                 </div>
