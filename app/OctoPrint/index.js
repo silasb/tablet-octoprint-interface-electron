@@ -3,6 +3,9 @@ class OctoPrint {
         this.server = 'localhost'
         this.port = 5000
         this.base = 'api'
+        this.onError = function(msg) {
+            console.error(msg)
+        }
 
         if ('server' in props)
             this.server = props.server
@@ -14,6 +17,19 @@ class OctoPrint {
             this.base = props.base
 
         console.log(this.server, this.port, this.base)
+    }
+
+    ping() {
+        var _this = this;
+        var url = `http://${this.server}:${this.port}`
+
+        var myRequest = new XMLHttpRequest();
+        myRequest.addEventListener('error', function() {
+            _this.onError(`Error connecting to ${_this.server}:${_this.port}`)
+        })
+        myRequest.open('GET', url, true);
+
+        myRequest.send(null);
     }
 
     callAPI(method, resource, request = {}, cb) {

@@ -1,7 +1,13 @@
 var React = require( 'react' );
 
 var OctoPrint = require('../OctoPrint')
+
 var octo = new OctoPrint({server: '10.5.5.115', port: 5000})
+octo.onError = function(msg) {
+    console.error(msg)
+}
+octo.ping()
+
 
 var OctoPrintInterface = React.createClass( {
     displayName: 'Main',
