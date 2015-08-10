@@ -65,6 +65,29 @@ var OctoPrintInterface = React.createClass( {
         }.bind(this))
     },
 
+    disconnectPrinter: function() {
+        octo.disconnect(function(printer) {
+            var intervalCount = 0
+            var intervalID = setInterval(function() {
+                intervalCount += 1;
+
+                octo.getConnection(function(connection) {
+                    if (connection.current.state === 'Closed') {
+                        this.setState({connected: false})
+                        clearInterval(intervalID)
+                    }
+                }.bind(this))
+
+                if (intervalCount > 3) {
+                    clearInterval(intervalID)
+                    octo.onError('Trouble connecting to printer')
+
+                }
+
+            }.bind(this), 1000)
+        }.bind(this))
+    },
+
     getInitialState: function() {
         return {
             connected: false,
@@ -116,11 +139,16 @@ var OctoPrintInterface = React.createClass( {
             var portSelection = <PortSelection ports={this.state.ports} bauds={this.state.bauds} onConnectPrinter={this.connectPrinter} />
         }
 
+        if (this.state.connected) {
+            var disconnectButton = <button className="btn btn-sm" onClick={this.disconnectPrinter}>Disconnect</button>
+        }
+
         return (
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-md-2">
                         {this.state.connected ? 'Connected' : 'Not Connected'}
+                        {disconnectButton}
                     </div>
                 </div>
 

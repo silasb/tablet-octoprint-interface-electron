@@ -75,6 +75,15 @@ class OctoPrint {
         return this.callAPI('POST', resource, request, cb)
     }
 
+    disconnect(cb) {
+        var resource = `${this.base}/connection`
+        var request = {
+            command: 'disconnect',
+        }
+
+        return this.callAPI('POST', resource, request, cb)
+    }
+
     getTool(cb) {
         var resource = `${this.base}/printer/tool`
         return this.callAPI('GET', resource, {}, cb)
