@@ -109,10 +109,10 @@ var OctoPrintInterface = React.createClass( {
                 octo.movePrinter(function() {}, 0, 10);
                 break;
             case 'right':
-                octo.movePrinter(function() {}, 10);
+                octo.movePrinter(function() {}, -10);
                 break;
             case 'left':
-                octo.movePrinter(function() {}, -10);
+                octo.movePrinter(function() {}, 10);
                 break;
             case 'home':
                 octo.homeAxes(['x', 'y'],  function() {});
