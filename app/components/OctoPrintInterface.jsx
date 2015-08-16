@@ -152,7 +152,7 @@ var OctoPrintInterface = React.createClass( {
     },
 
     render: function() {
-        var buttonStyle = { marginLeft: '40px' }
+        var buttonStyle = { marginLeft: '56px' }
 
         if (! this.state.connected) {
             var portSelection = <PortSelection ports={this.state.ports} bauds={this.state.bauds} onConnectPrinter={this.connectPrinter} />
@@ -174,42 +174,41 @@ var OctoPrintInterface = React.createClass( {
                 <div className="row">
                     <div className="col-md-2">
 
-                        <button className="btn btn-default" style={buttonStyle} disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'up')}>
+                        <button className="btn btn-lg btn-default" style={buttonStyle} disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'up')}>
                             <span className="glyphicon glyphicon-arrow-up"></span>
                         </button>
                         <br/>
 
-                        <button className="btn btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'left')}>
+                        <button className="btn btn-lg btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'left')}>
                             <span className="glyphicon glyphicon-arrow-left"></span>
                         </button>
 
-                        <button className="btn btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'home')}>
+                        <button className="home-btn btn btn-lg btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'home')}>
                             <span className="glyphicon glyphicon-home"></span>
                         </button>
 
-                        <button className="btn btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'right')}>
+                        <button className="btn btn-lg btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'right')}>
                             <span className="glyphicon glyphicon-arrow-right"></span>
                         </button>
                         <br/>
 
-                        <button className="btn btn-default" style={buttonStyle} disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'down')}>
+                        <button className="btn btn-lg btn-default" style={buttonStyle} disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'down')}>
                             <span className="glyphicon glyphicon-arrow-down"></span>
                         </button>
                     </div>
 
                     <div className="col-md-1">
-
-                        <button className="btn btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'z-up')}>
+                        <button className="btn btn-lg btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'z-up')}>
                             <span className="glyphicon glyphicon-arrow-up"></span>
                         </button>
                         <br/>
 
-                        <button className="btn btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'z-home')}>
+                        <button className="z-home-btn btn btn-lg btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'z-home')}>
                             <span className="glyphicon glyphicon-home"></span>
                         </button>
                         <br/>
 
-                        <button className="btn btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'z-down')}>
+                        <button className="btn btn-lg btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'z-down')}>
                             <span className="glyphicon glyphicon-arrow-down"></span>
                         </button>
                         <br/>
@@ -223,12 +222,12 @@ var OctoPrintInterface = React.createClass( {
 
                 <div className="row">
                     <div className="col-sm-12 col-md-12">
-                        <button className="btn btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'retract')}>
+                        <button className="btn btn-lg btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'retract')}>
                             <span className="glyphicon glyphicon-minus"></span>
                         </button>
                         <br/>
 
-                        <button className="btn btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'extrude')}>
+                        <button className="btn btn-lg btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'extrude')}>
                             <span className="glyphicon glyphicon-plus"></span>
                         </button>
                         <br/>
@@ -237,15 +236,15 @@ var OctoPrintInterface = React.createClass( {
 
                 <div className="row">
                     <div className="col-sm-12 col-md-12">
-                        <button className="btn btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'start')}>
+                        <button className="btn btn-lg btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'start')}>
                             <span className="glyphicon glyphicon-play"></span>
                         </button>
 
-                        <button className="btn btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'pause')}>
+                        <button className="btn btn-lg btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'pause')}>
                             <span className="glyphicon glyphicon-pause"></span>
                         </button>
 
-                        <button className="btn btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'stop')}>
+                        <button className="btn btn-lg btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'stop')}>
                             <span className="glyphicon glyphicon-stop"></span>
                         </button>
                     </div>

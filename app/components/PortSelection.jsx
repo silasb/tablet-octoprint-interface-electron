@@ -90,7 +90,7 @@ var PortSelection = React.createClass({
                     })}
                 </Select>
 
-                <button className="btn btn-primary" onClick={this.handleConnect} disabled={disabled}>Connect</button>
+                <button className="btn btn-lg btn-primary" onClick={this.handleConnect} disabled={disabled}>Connect</button>
                 <label className="checkbox-inline">
                     <input type="checkbox" ref="autoconnect" onClick={this.handleAutoConnect} />
                     Autoconnect
