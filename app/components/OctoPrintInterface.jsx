@@ -137,6 +137,14 @@ var OctoPrintInterface = React.createClass( {
             case 'retract':
                 octo.extrude(-5, function() {});
                 break;
+
+            case 'start':
+                /*ecto.*/
+                break;
+            case 'pause':
+                break;
+            case 'stop':
+                break;
         }
         octo.getPrinter(function(printer) {
             console.log(printer)
@@ -224,6 +232,22 @@ var OctoPrintInterface = React.createClass( {
                             <span className="glyphicon glyphicon-plus"></span>
                         </button>
                         <br/>
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-sm-12 col-md-12">
+                        <button className="btn btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'start')}>
+                            <span className="glyphicon glyphicon-play"></span>
+                        </button>
+
+                        <button className="btn btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'pause')}>
+                            <span className="glyphicon glyphicon-pause"></span>
+                        </button>
+
+                        <button className="btn btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'stop')}>
+                            <span className="glyphicon glyphicon-stop"></span>
+                        </button>
                     </div>
                 </div>
 

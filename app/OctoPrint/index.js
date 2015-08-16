@@ -139,6 +139,53 @@ class OctoPrint {
 
         return this.callAPI('POST', resource, request, cb)
     }
+
+    selectFile(file, cb) {
+        var resource = `${this.base}/files/local/${filename}`
+        var request = {
+            command: 'select',
+            print: false
+        }
+
+        return this.callAPI('POST', resource, request, cb)
+    }
+
+    selectFileAndPrint(file, cb) {
+        var resource = `${this.base}/files/local/${filename}`
+        var request = {
+            command: 'select',
+            print: true
+        }
+
+        return this.callAPI('POST', resource, request, cb)
+    }
+
+    start(cb) {
+        var resource = `${this.base}/job`
+        var request = {
+            command: 'start'
+        }
+
+        return this.callAPI('POST', resource, request, cb)
+    }
+
+    pause(cb) {
+        var resource = `${this.base}/job`
+        var request = {
+            command: 'pause'
+        }
+
+        return this.callAPI('POST', resource, request, cb)
+    }
+
+    pause(cb) {
+        var resource = `${this.base}/job`
+        var request = {
+            command: 'cancel'
+        }
+
+        return this.callAPI('POST', resource, request, cb)
+    }
 }
 
 export default OctoPrint;
