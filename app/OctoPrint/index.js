@@ -129,6 +129,16 @@ class OctoPrint {
         var resource = `${this.base}/files`
         return this.callAPI('GET', resource, cb)
     }
+
+    extrude(amount, cb) {
+        var resource = `${this.base}/printer/tool`
+        var request = {
+            command: 'extrude',
+            amount: amount
+        }
+
+        return this.callAPI('POST', resource, request, cb)
+    }
 }
 
 export default OctoPrint;

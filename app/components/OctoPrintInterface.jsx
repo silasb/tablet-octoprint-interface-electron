@@ -126,6 +126,12 @@ var OctoPrintInterface = React.createClass( {
             case 'z-down':
                 octo.movePrinter(function() {}, 0, 0, 10);
                 break;
+            case 'extrude':
+                octo.extrude(5, function() {});
+                break;
+            case 'retract':
+                octo.extrude(-5, function() {});
+                break;
         }
         octo.getPrinter(function(printer) {
             console.log(printer)
@@ -194,11 +200,25 @@ var OctoPrintInterface = React.createClass( {
                             <span className="glyphicon glyphicon-arrow-down"></span>
                         </button>
                         <br/>
-
                     </div>
 
                     <div className="col-md-1">
                         {portSelection}
+                    </div>
+
+                </div>
+
+                <div className="row">
+                    <div className="col-sm-12 col-md-12">
+                        <button className="btn btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'retract')}>
+                            <span className="glyphicon glyphicon-minus"></span>
+                        </button>
+                        <br/>
+
+                        <button className="btn btn-default" disabled={this.state.connected ? '' : 'disabled'} onClick={this.handleClick.bind(this, 'extrude')}>
+                            <span className="glyphicon glyphicon-plus"></span>
+                        </button>
+                        <br/>
                     </div>
                 </div>
 
