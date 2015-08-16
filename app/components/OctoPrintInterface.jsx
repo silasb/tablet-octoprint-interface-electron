@@ -8,7 +8,10 @@ octo.onError = function(msg) {
     console.error(msg)
     alert(msg)
 }
-octo.ping()
+/*octo.ping()*/
+
+var enableGetPortsAndBaud = false;
+var enableUpdateTempInterval = false;
 
 var OctoPrintInterface = React.createClass( {
     displayName: 'Main',
@@ -16,15 +19,17 @@ var OctoPrintInterface = React.createClass( {
     componentDidMount: function() {
         var _this = this;
 
-        octo.getConnection(function(connection) {
-            console.log(connection)
-            _this.setState({
-                ports: connection.options.ports,
-                bauds: connection.options.baudrates
+        if (enableGetPortsAndBaud) {
+            octo.getConnection(function(connection) {
+                console.log(connection)
+                _this.setState({
+                    ports: connection.options.ports,
+                    bauds: connection.options.baudrates
+                })
             })
-        })
+        }
 
-        if (false) {
+        if (enableUpdateTempInterval) {
             setInterval(function() {
                 octo.getPrinter(function(printer) {
                     var temps = {
