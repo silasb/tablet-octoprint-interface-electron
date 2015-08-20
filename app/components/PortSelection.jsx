@@ -3,6 +3,7 @@ var React = require( 'react' );
 var remote = require('remote')
 var app = remote.require('app')
 var fs = require( 'fs' );
+var BootstrapModal = require('./BootstrapModal')
 
 var PortSelection = React.createClass({
     getInitialState: function() {
@@ -67,35 +68,55 @@ var PortSelection = React.createClass({
 
     },
 
+    handleHideModal: function() {
+        return this.isValid()
+    },
+
     render: function() {
         var ports = this.props.ports;
         var bauds = this.props.bauds;
         var disabled = !this.isValid()
 
         return (
-            <div>
-                <Select onChange={this.handleCOMMSelect}>
-                    <option>Please select</option>
+            <BootstrapModal
+                header="Connect to Printer"
+                show={true}
+                handleHide={this.handleHideModal}
+                ref="modal">
 
-                    {ports.map(function(item, idx) {
-                        return <option key={idx} value={item}>{item}</option>
-                    })}
-                </Select>
+                <form>
+                    <div className="form-group">
+                        <label>COM Port</label>
+                        <Select onChange={this.handleCOMMSelect} className="form-control">
+                            <option>Please select</option>
 
-                <Select onChange={this.handleBaudSelect}>
-                    <option>Please select</option>
+                            {ports.map(function(item, idx) {
+                                return <option key={idx} value={item}>{item}</option>
+                            })}
+                        </Select>
+                    </div>
 
-                    {bauds.map(function(item, idx) {
-                        return <option key={idx} value={item}>{item}</option>
-                    })}
-                </Select>
+                    <div className="form-group">
+                        <label>Baudrate</label>
+                        <Select onChange={this.handleBaudSelect} className="form-control">
+                            <option>Please select</option>
 
-                <button className="btn btn-lg btn-primary" onClick={this.handleConnect} disabled={disabled}>Connect</button>
-                <label className="checkbox-inline">
-                    <input type="checkbox" ref="autoconnect" onClick={this.handleAutoConnect} />
-                    Autoconnect
-                </label>
-            </div>
+                            {bauds.map(function(item, idx) {
+                                return <option key={idx} value={item}>{item}</option>
+                            })}
+                        </Select>
+                    </div>
+
+                    <div className="checkbox">
+                        <label>
+                            <input type="checkbox" ref="autoconnect" onClick={this.handleAutoConnect} />
+                            Autoconnect
+                        </label>
+                    </div>
+
+                    <button className="btn btn-lg btn-primary" onClick={this.handleConnect} disabled={disabled}>Connect</button>
+                </form>
+            </BootstrapModal>
         )
     }
 })
@@ -109,7 +130,7 @@ var Select = React.createClass({
 
     render: function() {
         return (
-            <select onChange={this.handleSelect}>
+            <select onChange={this.handleSelect} className={this.props.className}>
                 {this.props.children}
             </select>
         )

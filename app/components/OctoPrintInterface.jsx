@@ -213,11 +213,6 @@ var OctoPrintInterface = React.createClass( {
                         </button>
                         <br/>
                     </div>
-
-                    <div className="col-md-1">
-                        {portSelection}
-                    </div>
-
                 </div>
 
                 <div className="row">
@@ -258,6 +253,7 @@ var OctoPrintInterface = React.createClass( {
                     </div>
                 </div>
 
+                {portSelection}
             </div>
         );
     }

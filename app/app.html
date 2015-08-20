@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8">
     <title>Electron Boilerplate</title>
-
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css" type="text/css">
     <link href="./stylesheets/main.css" rel="stylesheet" type="text/css">
 
@@ -11,11 +10,13 @@
     <script src="vendor/electron_boilerplate/context_menu.js"></script>
     <script src="vendor/electron_boilerplate/external_links.js"></script>
 
+    <script type="text/javascript" src="./node_modules/jquery/dist/jquery.js" onload="window.$ = window.jQuery = module.exports;"></script>
+    <script src="./node_modules/bootstrap/js/modal.js"></script>
+
     <script src="vendor/require.js"></script>
     <script>
         requirejs(['app'], function (app) {});
     </script>
-
 </head>
 <body>
 
